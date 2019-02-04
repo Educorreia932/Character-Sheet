@@ -23,33 +23,23 @@ class Character:
 
     for skill in skills:
         if index == 0:
-            if skill in proficiencies:
-                skills[skill] = 10 + (modifier(abilities["Strength"]) + 2) * 2
-            else:
-                skills[skill] = 10 + modifier(abilities["Strength"]) * 2
+            ability = "Strength"
                 
         elif index >= 1 and index <= 3:
-            if skill in proficiencies:
-                skills[skill] = 10 + (modifier(abilities["Dexterity"]) + 2) * 2
-            else:
-                skills[skill] = 10 + modifier(abilities["Dexterity"]) * 2     
-                
+            ability = "Dexterity"
+            
         elif index >= 4 and index <= 8:
-            if skill in proficiencies:
-                skills[skill] = 10 + (modifier(abilities["Intelligence"]) + 2) * 2
-            else:
-                skills[skill] = 10 + modifier(abilities["Intelligence"]) * 2    
+            ability = "Intelligence"
                 
         elif index >= 9 and index <= 13:
-            if skill in proficiencies:
-                skills[skill] = 10 + (modifier(abilities["Wisdom"]) + 2) * 2
-            else:
-                skills[skill] = 10 + modifier(abilities["Wisdom"]) * 2      
+            ability = "Wisdom"
                 
         elif index >= 14:
-            if skill in proficiencies:
-                skills[skill] = 10 + (modifier(abilities["Charisma"]) + 2) * 2
-            else:
-                skills[skill] = 10 + modifier(abilities["Charisma"]) * 2  
+            ability = "Charisma"            
+            
+        if skill in proficiencies:
+            skills[skill] = 10 + (modifier(abilities[ability]) + 2) * 2
+        else:
+            skills[skill] = 10 + modifier(abilities[ability]) * 2  
                 
         index += 1
