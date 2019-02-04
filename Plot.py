@@ -65,5 +65,3 @@ for i in range(N):
         ha, distance_ax = "right", 1
 
     ax.text(angle_rad, 20 + distance_ax, char[i], size = 10, horizontalalignment = ha, verticalalignment = "center")
-
-plt.show()

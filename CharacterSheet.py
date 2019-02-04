@@ -13,7 +13,7 @@ def modifier(score):
 class Character:
     index = 0
     
-    proficiencies = ["Acrobatics", "Animal Handling", "Stealth", "Survival"]
+    proficiencies = []
     
     abilities = {"Strength": 12, "Dexterity": 16, "Constitution": 14, "Intelligence": 10, "Wisdom": 16, "Charisma": 9}        
     
