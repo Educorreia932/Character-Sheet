@@ -5,59 +5,125 @@ Created on Mon Feb  4 14:32:24 2019
 @author: Asus
 """
 
-import tkinter as tk
+import tkinter as tk       
 from math import pi
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt  
 
+#Functions
 def modifier(score):
     score = int(score)
     
     return (score - 10) // 2
 
+def addSkill():
+    if var0.get() == 1:
+        Character.proficiencies.append(skills[0].replace('_', ' '))
+    if var1.get() == 1:
+        Character.proficiencies.append(skills[1].replace('_', ' '))
+    if var2.get() == 1:
+        Character.proficiencies.append(skills[2].replace('_', ' '))
+    if var3.get() == 1:
+        Character.proficiencies.append(skills[3].replace('_', ' '))
+    if var4.get() == 1:
+        Character.proficiencies.append(skills[4].replace('_', ' '))
+    if var5.get() == 1:
+        Character.proficiencies.append(skills[5].replace('_', ' '))
+    if var6.get() == 1:
+        Character.proficiencies.append(skills[6].replace('_', ' '))
+    if var7.get() == 1:
+        Character.proficiencies.append(skills[7].replace('_', ' '))
+    if var8.get() == 1:
+        Character.proficiencies.append(skills[8].replace('_', ' '))
+    if var9.get() == 1:
+        Character.proficiencies.append(skills[9].replace('_', ' '))
+    if var10.get() == 1:
+        Character.proficiencies.append(skills[10].replace('_', ' '))
+    if var11.get() == 1:
+        Character.proficiencies.append(skills[11].replace('_', ' '))
+    if var12.get() == 1:
+        Character.proficiencies.append(skills[12].replace('_', ' '))
+    if var13.get() == 1:
+        Character.proficiencies.append(skills[13].replace('_', ' '))
+    if var14.get() == 1:
+        Character.proficiencies.append(skills[14].replace('_', ' '))
+    if var15.get() == 1:
+        Character.proficiencies.append(skills[15].replace('_', ' '))
+    if var16.get() == 1:
+        Character.proficiencies.append(skills[16].replace('_', ' '))
+    if var17.get() == 1:
+        Character.proficiencies.append(skills[17].replace('_', ' '))
+        
+def Exit():
+    Character.abilities["Strength"] = Strength.get()
+    Character.abilities["Dexterity"] = Dexterity.get()
+    Character.abilities["Constitution"] = Constitution.get()
+    Character.abilities["Intelligence"] = Intelligence.get()
+    Character.abilities["Wisdom"] = Wisdom.get()
+    Character.abilities["Charisma"] = Charisma.get()
+    root.destroy()
+        
 class Character:   
     proficiencies = []
     
-    abilities = {"Strength": 12, "Dexterity": 16, "Constitution": 14, "Intelligence": 10, "Wisdom": 16, "Charisma": 9}        
+    abilities = {"Strength": 10, "Dexterity": 10, "Constitution": 10, "Intelligence": 10, "Wisdom": 10, "Charisma": 10}        
     
     skills = {"Athletics": 0, "Acrobatics": 0, "Sleight of Hand": 0, "Stealth": 0, "Arcana": 0,  "History": 0,
               "Investigation": 0, "Nature": 0, "Religion": 0,"Animal Handling": 0, "Insight": 0, "Medicine": 0, 
               "Perception": 0, "Survival": 0, "Deception": 0, "Intimidation": 0, "Performance": 0, "Persuasion": 0}
 
-counter = 0 
+counter = 0
 variables = []
 skills = []
-teste = []
- 
+
 root = tk.Tk()
+root.attributes('-fullscreen', True)
 root.title("Character Sheet")
 
-label = tk.Label(root, text = "Proficiencies", font = 'Helvetica 18 bold')
-label.pack()
+label1 = tk.Label(root, text = "Abilities", font = 'Helvetica 18 bold')
+label1.pack()
+label1.place(relx = "0.258", rely = "0")
 
-def addSkill():
-    if exec("var" + str(counter) + ".get() == 1"):
-        Character.proficiencies.append(skills[counter].replace('_', ' '))
-    elif exec("var" + str(counter) + ".get() == 0"):
-        pass
+relation = 0.1
+relation_two = 0.07
+
+for ability in Character.abilities.keys():
+    exec("label" + ability + "= tk.Label(root, text = ability)")
+    exec("label" + ability + ".pack()")
+    exec("label" + ability + ".place(relx = '0.275', rely =" + str(relation_two) + ")")
+    exec("num" + str(counter) + "= tk.StringVar()")
+    exec(ability + "= tk.Entry(root, bd = 2,text = ability, textvariable = num" + str(counter) + ")")
+    exec(ability + ".pack()")
+    exec(ability + ".place(relx = '0.25', rely =" + str(relation) + ")")
+    
+    relation += 0.1
+    relation_two += 0.1
+
+label2 = tk.Label(root, text = "Proficiencies", font = 'Helvetica 18 bold')
+label2.pack()
+label2.place(relx = "0.75", rely = "0")
+
+counter = 0
+relation = 0.05
 
 for skill in sorted(Character.skills.keys()): 
     skills.append(skill.replace(" ", "_"))
     exec("var" + str(counter) + " = tk.IntVar()")
-    exec(skill.replace(" ", "") + "= tk.Checkbutton(root, text=skill, variable = var" + str(counter) + ", command = addSkill)")
-    exec(skill.replace(" ", "") + ".pack()")    
+    exec(skill.replace(" ", "") + "= tk.Checkbutton(root, text = skill, variable = var" + str(counter) + ", command = addSkill)")
+    exec(skill.replace(" ", "") + ".pack()") 
+    exec(skill.replace(" ", "") + ".place(relx = '0.75', rely =" + str(relation) + ")")
+    relation += 0.05
     variables.append("var" + str(counter))
         
     counter += 1
 
-counter = 0
-
-exit_button = tk.Button(root, text="Exit", width=25, command = root.destroy)
+exit_button = tk.Button(root, text="Submit", width=25, command = Exit)
 exit_button.pack()
+exit_button.place(relx= "0.5", rely = "0.5")
 
 root.mainloop()
 
-index = 0
-
+index = 0   
+    
 for skill in Character.skills:
         if index == 0:
             ability = "Strength"
@@ -77,10 +143,10 @@ for skill in Character.skills:
         if skill in Character.proficiencies:
             Character.skills[skill] = 10 + (modifier(Character.abilities[ability]) + 2) * 2
         else:
-            Character.skills[skill] = 10 + modifier(Character.abilities[ability]) * 2  
+            Character.skills[skill] = 10 + modifier(Character.abilities[ability]) * 2
             
-        index += 1    
-        
+        index += 1      
+    
 char = list(Character.skills.keys())
 values = list(Character.skills.values())
 
@@ -136,4 +202,4 @@ for i in range(N):
     else:
         ha, distance_ax = "right", 1
 
-    ax.text(angle_rad, 20 + distance_ax, char[i], size = 10, horizontalalignment = ha, verticalalignment = "center")  
+    ax.text(angle_rad, 20 + distance_ax, char[i], size = 10, horizontalalignment = ha, verticalalignment = "center")   
