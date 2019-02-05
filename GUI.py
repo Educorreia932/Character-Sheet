@@ -60,10 +60,13 @@ def Exit():
     Character.abilities["Intelligence"] = Intelligence.get()
     Character.abilities["Wisdom"] = Wisdom.get()
     Character.abilities["Charisma"] = Charisma.get()
+    Character.bonus = int(proficiency.get())
     root.destroy()
         
 class Character:   
     proficiencies = []
+    
+    bonus = 0
     
     abilities = {"Strength": 10, "Dexterity": 10, "Constitution": 10, "Intelligence": 10, "Wisdom": 10, "Charisma": 10}        
     
@@ -79,9 +82,18 @@ root = tk.Tk()
 root.attributes('-fullscreen', True)
 root.title("Character Sheet")
 
+label3 = tk.Label(root, text = "Proficiency Bonus", font = "Helvetica 18 bold")
+label3.pack()
+label3.place(relx = 0.469, rely = 0)
+
+bonus = tk.StringVar()
+proficiency = tk.Entry(root, bd = 2, text = "proficiency", textvariable = bonus)
+proficiency.pack()
+proficiency.place(relx = 0.5, rely = 0.07)
+
 label1 = tk.Label(root, text = "Abilities", font = 'Helvetica 18 bold')
 label1.pack()
-label1.place(relx = "0.258", rely = "0")
+label1.place(relx = 0.258, rely = 0)
 
 relation = 0.1
 relation_two = 0.07
@@ -118,7 +130,7 @@ for skill in sorted(Character.skills.keys()):
 
 exit_button = tk.Button(root, text="Submit", width=25, command = Exit)
 exit_button.pack()
-exit_button.place(relx= "0.5", rely = "0.5")
+exit_button.place(relx= 0.5, rely = 0.5)
 
 root.mainloop()
 
@@ -141,9 +153,9 @@ for skill in Character.skills:
             ability = "Charisma"            
             
         if skill in Character.proficiencies:
-            Character.skills[skill] = 10 + (modifier(Character.abilities[ability]) + 2) * 2
+            Character.skills[skill] = modifier(Character.abilities[ability]) + Character.bonus
         else:
-            Character.skills[skill] = 10 + modifier(Character.abilities[ability]) * 2
+            Character.skills[skill] = modifier(Character.abilities[ability])
             
         index += 1      
     
@@ -178,7 +190,7 @@ ax.yaxis.grid(True, color="#888888", linestyle='solid', linewidth=0.5)
 plt.xticks(x_as[:-1], [])
 
 # Set yticks
-plt.yticks([4, 8, 12, 16, 20], ["4", "8", "12", "16", "20"])
+plt.yticks([-9, -6, -3, 0, 3, 6, 9], ["-9", "-6", "-3", "0", "+3", "+6", "+9"])
 
 # Plot data
 ax.plot(x_as, values, linewidth=0, linestyle='solid', zorder=3)
@@ -187,7 +199,7 @@ ax.plot(x_as, values, linewidth=0, linestyle='solid', zorder=3)
 ax.fill(x_as, values, 'b', alpha=0.3)
 
 # Set axes limits
-plt.ylim(0, 20)
+plt.ylim(-9, 9)
 
 # Draw ytick labels to make sure they fit properly
 for i in range(N):
@@ -202,6 +214,6 @@ for i in range(N):
     else:
         ha, distance_ax = "right", 1
 
-    ax.text(angle_rad, 20 + distance_ax, char[i], size = 10, horizontalalignment = ha, verticalalignment = "center")
+    ax.text(angle_rad, 10 + distance_ax, char[i], size = 10, horizontalalignment = ha, verticalalignment = "center")
 
 plt.show()
