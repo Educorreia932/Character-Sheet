@@ -7,7 +7,11 @@ Created on Mon Feb  4 14:32:24 2019
 
 import tkinter as tk       
 from math import pi
-import matplotlib.pyplot as plt  
+from sys import platform as sys_pf
+if sys_pf == 'darwin':
+    import matplotlib
+    matplotlib.use("TkAgg")
+from matplotlib import pyplot as plt
 
 #Functions
 def modifier(score):
